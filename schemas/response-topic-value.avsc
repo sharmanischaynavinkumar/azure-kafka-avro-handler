@@ -1,0 +1,87 @@
+{
+  "type": "record",
+  "name": "ResponseMessage",
+  "namespace": "com.azure.kafka.avro",
+  "doc": "Schema for response messages from Azure Functions",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "Unique identifier for the response message"
+    },
+    {
+      "name": "correlationId",
+      "type": "string",
+      "doc": "Correlation ID linking this response to the original request"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "doc": "Unix timestamp when the response was generated"
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "ProcessingStatus",
+        "symbols": ["SUCCESS", "ERROR", "PARTIAL", "RETRY"]
+      },
+      "doc": "Status of the message processing"
+    },
+    {
+      "name": "result",
+      "type": {
+        "type": "record",
+        "name": "ProcessingResult",
+        "fields": [
+          {
+            "name": "processedData",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "Processed data as JSON string, null if processing failed"
+          },
+          {
+            "name": "errorMessage",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "Error message if processing failed"
+          },
+          {
+            "name": "errorCode",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "Error code for categorizing failures"
+          },
+          {
+            "name": "processingTimeMs",
+            "type": "long",
+            "doc": "Time taken to process the message in milliseconds"
+          },
+          {
+            "name": "retryCount",
+            "type": "int",
+            "default": 0,
+            "doc": "Number of retry attempts made"
+          }
+        ]
+      },
+      "doc": "Result of the message processing"
+    },
+    {
+      "name": "functionName",
+      "type": "string",
+      "doc": "Name of the Azure Function that processed the message"
+    },
+    {
+      "name": "executionId",
+      "type": "string",
+      "doc": "Unique execution ID for tracking and debugging"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "default": "1.0",
+      "doc": "Schema version"
+    }
+  ]
+}
