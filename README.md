@@ -251,12 +251,13 @@ func logs
 - Automatic correlation with Azure Monitor
 - Performance metrics and error tracking
 
-### Log Format Example
-```
-2025-07-30 10:30:15 - KafkaAvroHandler - INFO - [msg-abc123] Processing incoming message
-2025-07-30 10:30:15 - AvroHandler - INFO - [msg-abc123] Avro deserialization successful
-2025-07-30 10:30:16 - AvroProducer - INFO - [msg-abc123] Response published to response-topic
-```
+### Log Format 
+All the logs emitted contains the following fields in custom dimension:
+- messageId
+- topic
+- partition
+- offset
+- timestamp
 
 ## 🚀 Deployment
 
