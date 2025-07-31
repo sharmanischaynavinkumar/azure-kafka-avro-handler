@@ -1,0 +1,64 @@
+{
+  "type": "record",
+  "name": "IncomingMessage",
+  "namespace": "com.azure.kafka.avro",
+  "doc": "Schema for incoming messages to Azure Functions",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "Unique identifier for the message"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "doc": "Unix timestamp when the message was created"
+    },
+    {
+      "name": "eventType",
+      "type": "string",
+      "doc": "Type of event being processed"
+    },
+    {
+      "name": "payload",
+      "type": {
+        "type": "record",
+        "name": "IncomingPayload",
+        "fields": [
+          {
+            "name": "userId",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "User ID associated with the event"
+          },
+          {
+            "name": "data",
+            "type": "string",
+            "doc": "JSON string containing the actual event data"
+          },
+          {
+            "name": "metadata",
+            "type": {
+              "type": "map",
+              "values": "string"
+            },
+            "default": {},
+            "doc": "Additional metadata as key-value pairs"
+          }
+        ]
+      },
+      "doc": "The actual payload of the incoming message"
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "doc": "Source system that generated this message"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "default": "1.0",
+      "doc": "Schema version"
+    }
+  ]
+}

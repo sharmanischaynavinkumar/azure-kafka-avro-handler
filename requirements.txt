@@ -1,0 +1,10 @@
+# Azure Functions requirements
+azure-functions
+
+# Kafka and Avro support
+confluent-kafka[avro]
+
+# Azure Application Insights
+opencensus-ext-azure
+
+python-dotenv==1.0.1

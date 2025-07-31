@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "IncomingMessageKey",
+  "namespace": "com.azure.kafka.avro",
+  "doc": "Schema for incoming message keys",
+  "fields": [
+    {
+      "name": "partitionKey",
+      "type": "string",
+      "doc": "Key used for partitioning messages"
+    },
+    {
+      "name": "eventType",
+      "type": "string",
+      "doc": "Type of event for routing purposes"
+    },
+    {
+      "name": "correlationId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Correlation ID for tracking related messages"
+    }
+  ]
+}

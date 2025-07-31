@@ -1,0 +1,24 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "type": "kafkaTrigger",
+      "name": "kafka_event",
+      "direction": "in",
+      "brokerList": "%KafkaBrokerList%",
+      "topic": "%KafkaTopic%",
+      "consumerGroup": "%KafkaConsumerGroup%",
+      "protocol": "PLAINTEXT",
+      "authenticationMode": "PLAIN",
+      "username": "%KafkaUsername%",
+      "password": "%KafkaPassword%",
+      "dataType": "binary"
+    }
+  ],
+  "retry": {
+    "strategy": "exponentialBackoff",
+    "maxRetryCount": 3,
+    "minimumInterval": "00:00:10",
+    "maximumInterval": "00:05:00"
+  }
+}

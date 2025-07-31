@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "ResponseMessageKey",
+  "namespace": "com.azure.kafka.avro",
+  "doc": "Schema for response message keys from Azure Functions",
+  "fields": [
+    {
+      "name": "correlationId",
+      "type": "string",
+      "doc": "Correlation ID linking this response to the original request"
+    },
+    {
+      "name": "partitionKey",
+      "type": "string",
+      "doc": "Key used for partitioning response messages, typically same as original request"
+    },
+    {
+      "name": "responseType",
+      "type": {
+        "type": "enum",
+        "name": "ResponseType",
+        "symbols": ["PROCESSING_RESULT", "ERROR_RESPONSE", "ACKNOWLEDGMENT", "STATUS_UPDATE"]
+      },
+      "doc": "Type of response being sent"
+    },
+    {
+      "name": "functionName",
+      "type": "string",
+      "doc": "Name of the Azure Function that processed the original message"
+    }
+  ]
+}

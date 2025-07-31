@@ -1,0 +1,257 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Infrastructure: Start All Services",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"start"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		},
+		{
+			"label": "Infrastructure: Stop All Services",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"stop"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Infrastructure: Restart All Services",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"restart"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Infrastructure: Show Status",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"status"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Infrastructure: View All Logs",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"logs"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "Infrastructure: View Kafka Logs",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"logs",
+				"kafka"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "Infrastructure: View Schema Registry Logs",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"logs",
+				"schema-registry"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "Infrastructure: Create Kafka Topics",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"topics"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Infrastructure: Create Schema",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"schema",
+				"${input:schemaSubject}",
+				"${input:schemaFilePath}"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Kafka: Publish Sample Message",
+			"type": "shell",
+			"command": "./publish-message.sh",
+			"args": [
+				"sample",
+				"${input:eventType}",
+				"${input:userId}"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Infrastructure: Cleanup (Delete All Data)",
+			"type": "shell",
+			"command": "./setup-infrastructure.sh",
+			"args": [
+				"cleanup"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "Azure Function: Start Function Host",
+			"type": "shell",
+			"command": "./start-function.sh",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"options": {
+				"env": {
+					"PYTHONPATH": "/workspaces/azure-kafka-avro-handler/"
+				}
+			}
+		}
+	],
+	"inputs": [
+		{
+			"id": "schemaSubject",
+			"description": "Enter the schema subject name (e.g., user-value, order-key)",
+			"default": "my-topic-value",
+			"type": "promptString"
+		},
+		{
+			"id": "schemaFilePath",
+			"description": "Enter the path to the schema file",
+			"default": "schemas/",
+			"type": "promptString"
+		},
+		{
+			"id": "eventType",
+			"description": "Enter the event type",
+			"default": "user.created",
+			"type": "pickString",
+			"options": [
+				"user.created",
+				"user.updated",
+				"user.deleted",
+				"order.placed",
+				"order.cancelled",
+				"payment.processed",
+				"notification.sent",
+				"system.health"
+			]
+		},
+		{
+			"id": "userId",
+			"description": "Enter the user ID (optional)",
+			"default": "",
+			"type": "promptString"
+		}
+	]
+}
